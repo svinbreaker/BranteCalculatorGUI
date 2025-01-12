@@ -1,12 +1,6 @@
-﻿using BranteCalculatorWPF;
-using BranteCalculatorWPF.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BranteCalculatorWPF.Util;
 
-namespace BranteCalculator.Entities
+namespace BranteCalculatorWPF.Entities
 {
     public class Flag : LocalizibleObject
     {

@@ -1,31 +1,22 @@
 ﻿using BranteCalculator.Entities;
-using BranteCalculator.Entities.Characters;
 using BranteCalculator.Entities.Events;
-using BranteCalculatorWPF.Controls;
 using BulbulatorLocalization;
 using Microsoft.Win32;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BranteCalculatorWPF
 {
     public partial class MainWindow : Window
     {
-        public static Settings Settings { get; } = new Settings("English");
-        public static string ProjectPath { get => System.AppDomain.CurrentDomain.BaseDirectory.Replace(@"\bin\Debug\net8.0", "").Replace("-windows", ""); }
-
         private static Localizer _localizer;
+        private static MainViewModel _viewModel;
+        
+        public static Settings Settings { get; } = new ("English");
+
         public static Localizer Localizer
         {
             get
@@ -37,8 +28,9 @@ namespace BranteCalculatorWPF
                 return _localizer;
             }
         }
+        
+        private static string ProjectPath => AppDomain.CurrentDomain.BaseDirectory.Replace(@"\bin\Debug\net8.0", "").Replace("-windows", "");
 
-        private static MainViewModel _viewModel;
         public static MainViewModel ViewModel { get { if (_viewModel == null) { _viewModel = new MainViewModel(); } return _viewModel; } }
 
         Dictionary<Event, Decision> SavedDecisions = new Dictionary<Event, Decision>();
@@ -48,7 +40,7 @@ namespace BranteCalculatorWPF
         {
             InitializeComponent();
             InitializeLanguageMenu();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
             AddNextEvent();
         }
 

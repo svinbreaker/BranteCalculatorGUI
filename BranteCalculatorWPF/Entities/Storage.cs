@@ -12,6 +12,7 @@ using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BranteCalculatorWPF.Entities;
 
 namespace BranteCalculator.Entities
 {
@@ -1979,8 +1980,8 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Willpower.Add(5))
         .WithConsequence(() => Inquisition.Add(1)))
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_TRAIL_OF_SORCERY_DECISION_HELP_JEANNE", decision => decision
-        .WithRequirement(() => Jeanne == Status.WAVERING)
-        .WithConsequence(() => Inquisition.Add(1))
+        .WithRequirement(() => Jeanne != Status.ZEALOUS)
+        .WithConsequence(() => Willpower.Add(5))
         .WithConsequence(() => Jeanne.Add(1)))
     .Build());
 
@@ -4095,7 +4096,7 @@ namespace BranteCalculator.Entities
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_NEW_SACRAMENT", true)
   .WithRequirement(() => PathOfThePriest == true)
-  .WithRequirement(() => Inquisition >= 8)
+  .WithRequirement(() => Tolerance >= 8)
   .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
   .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_NEW_SACRAMENT_DECISION_APPEAL_TO_THE_OVERSEER", decision => decision
       .WithRequirement(() => BrandedByDishonor == false)

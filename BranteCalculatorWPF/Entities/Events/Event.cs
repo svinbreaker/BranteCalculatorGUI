@@ -14,13 +14,14 @@ namespace BranteCalculator.Entities.Events
 {
     public class Event : LocalizibleObject
     {
+        private bool? _isAvailable;
+        
         public bool IsVariableTime { get; }
-        public List<Expression<Func<bool>>> VisibleRequirements { get; set; } = new List<Expression<Func<bool>>>();
-        public List<Expression<Func<bool>>> HiddenRequirements { get; set; } = new List<Expression<Func<bool>>>();
-        public List<Expression<Func<bool>>> Requirements { get => VisibleRequirements.Concat(HiddenRequirements).ToList(); }
+        private List<Expression<Func<bool>>> VisibleRequirements { get; set; } = new List<Expression<Func<bool>>>();
+        private List<Expression<Func<bool>>> HiddenRequirements { get; set; } = new List<Expression<Func<bool>>>();
+        private List<Expression<Func<bool>>> Requirements { get => VisibleRequirements.Concat(HiddenRequirements).ToList(); }
         public List<Decision> Decisions { get; set; } = new List<Decision>();
         public bool HasPassed { get; set; }
-        public bool IsOptional { get => Requirements.Count > 0; }
 
         public Decision? SelectedDecision { get => Decisions.Where(d => d.IsChecked).FirstOrDefault(); }
 
@@ -49,20 +50,19 @@ namespace BranteCalculator.Entities.Events
             }
             HasPassed = false;
         }
-
-        private bool? _isAvalaible;
+        
         public bool IsAvalaible
         {
             get
             {
                 if (HasPassed == false)
                 {
-                    _isAvalaible = null;
+                    _isAvailable = null;
                 }
 
-                if (_isAvalaible == null)
+                if (_isAvailable == null)
                 {
-                    _isAvalaible = true;
+                    _isAvailable = true;
                     if (Requirements.Count > 0)
                     {
                         foreach (var requirement in Requirements)
@@ -71,12 +71,12 @@ namespace BranteCalculator.Entities.Events
                             var compiledRequirement = requirement.Compile();
                             if (!compiledRequirement())
                             {
-                               _isAvalaible = false;
+                               _isAvailable = false;
                             }
                         }
                     }
                 }
-                return _isAvalaible.Value;
+                return _isAvailable.Value;
             }
         }
 
@@ -106,14 +106,13 @@ namespace BranteCalculator.Entities.Events
             {
                 return true;
             }
-            else if (a is null || b is null)
+
+            if (a is null || b is null)
             {
                 return false;
             }
-            else
-            {
-                return a.Name == b.Name && ReferenceEquals(a.Requirements, b.Requirements) && ReferenceEquals(a.Decisions, b.Decisions);
-            }
+
+            return a.Name == b.Name && ReferenceEquals(a.Requirements, b.Requirements) && ReferenceEquals(a.Decisions, b.Decisions);
         }
 
         public static bool operator !=(Event a, Event b)
@@ -122,14 +121,13 @@ namespace BranteCalculator.Entities.Events
             {
                 return false;
             }
-            else if (a is null || b is null)
+
+            if (a is null || b is null)
             {
                 return true;
             }
-            else
-            {
-                return a.Name != b.Name && !ReferenceEquals(a.Requirements, b.Requirements) || ReferenceEquals(a.Decisions, b.Decisions);
-            }
+
+            return a.Name != b.Name && !ReferenceEquals(a.Requirements, b.Requirements) || ReferenceEquals(a.Decisions, b.Decisions);
         }
     }
 }

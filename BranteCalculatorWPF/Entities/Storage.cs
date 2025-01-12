@@ -4048,7 +4048,7 @@ namespace BranteCalculator.Entities
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_NIGHT_OF_SWORD_AND_LASH", true)
    .WithRequirement(() => PathOfThePriest == true)
-   .WithRequirement(() => Inquisition == 0)
+   .WithRequirement(() => Tolerance == 0)
    .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
    .WithDecision("EVENTS_PEACETIME_INQUISITOR_NIGHT_OF_SWORD_AND_LASH_DECISION_ADMONISH_THE_ANGRY_CROWD", decision => decision
        .WithRequirement(() => Eloquence >= 12)

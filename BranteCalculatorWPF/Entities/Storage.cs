@@ -4035,7 +4035,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_FIRE", true)
    .WithRequirement(() => PathOfThePriest == true)
    .WithRequirement(() => Tolerance <= 2)
-   .WithHiddenRequirement(() => !TheDenunciaton.HasPassed)
+   .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
    .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_FIRE_DECISION_REBUILD_THE_TEMPLE", decision => decision
        .WithRequirement(() => Diplomacy >= 12 || Robert >= 2)
        .WithConsequence(() => Tolerance.Add(2))

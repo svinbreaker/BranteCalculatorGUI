@@ -230,6 +230,9 @@ namespace BranteCalculator.Entities
         public static Event ARealmUnknown;
         public static Event TheCaseOfFatherMark;
         public static Event ARendezvousWithOctavia;
+        public static Event ASinnersConfession;
+        public static Event TheDenunciation;
+        public static Event JusticeForAll;
         public static Event FinalPreparations;
         public static Event FamilyMatter;
         public static Event BrothersInMisery;
@@ -359,7 +362,9 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_CHILDHOOD_THE_INTRUSION")
                                                                    .WithDecision("EVENTS_CHILDHOOD_THE_INTRUSION_DECISION_WATCH_THEM_MELT_HELPLESSLY", decision => decision
                                                                                  .WithRequirement(() => Perception >= 4)
+                                                                                 .WithConsequence(() => Perception.Add(1))
                                                                                  .WithConsequence(() => Willpower.Add(5)))
+
                                                                    .WithDecision("EVENTS_CHILDHOOD_THE_INTRUSION_DECISION_RESCUE_YOUR_TIN_SOLDIERS", decision => decision
                                                                                  .WithRequirement(() => Determination >= 4)
                                                                                  .WithConsequence(() => Determination.Add(1))
@@ -2520,7 +2525,7 @@ namespace BranteCalculator.Entities
                                                                   .WithConsequence(() => Power.Add(1)))
                                                      .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_A_SINNERS_CONFESSION")
+            ASinnersConfession = (new EventBuilder("EVENTS_PEACETIME_INQUISITOR_A_SINNERS_CONFESSION")
                 .WithRequirement(() => PathOfThePriest == true)
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_A_SINNERS_CONFESSION_DECISION_JUDGE_NATHAN_AND_FIND_HIM_GUILTY", decision => decision
         .WithConsequence(() => Inquisition.Add(2))
@@ -2548,6 +2553,7 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Nathan.Add(1))
         .WithConsequence(() => Nathan.Set(Status.RECRUITED)))
                 .Build());
+            Events.Add(ASinnersConfession);
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_RENEGADE")
                 .WithRequirement(() => PathOfThePriest == true)
@@ -2638,7 +2644,7 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => StockpileOfArms.Check()))
     .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_JUSTICE_FOR_ALL")
+            JusticeForAll = (new EventBuilder("EVENTS_PEACETIME_JUDGE_JUSTICE_FOR_ALL")
                 .WithRequirement(() => PathOfTheNobleman == true)
                 .WithDecision("EVENTS_PEACETIME_JUDGE_JUSTICE_FOR_ALL_DECISION_PROVOKE_THE_ARKNIAN", decision => decision
                     .WithRequirement(() => Willpower >= 0)
@@ -2669,6 +2675,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Career.Add(-1))
                     .WithConsequence(() => Justice.Add(2)))
                     .Build());
+            Events.Add(JusticeForAll);
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_DEATHBED")
                 .WithDecision("EVENTS_PEACETIME_GENERAL_DEATHBED_DECISION_ACCEPT_THIS_LOSS", decision => decision
@@ -2831,7 +2838,7 @@ namespace BranteCalculator.Entities
                                                                 .WithConsequence(() => Church.Add(2)))
                                                    .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_DENUNCIATION")
+            TheDenunciation = (new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_DENUNCIATION")
                 .WithRequirement(() => PathOfThePriest == true)
                 .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_DENUNCIATION_DECISION_TELL_THE_TRUTH", decision => decision
                     .WithConsequence(() => Inquisition.Add(-1))
@@ -2850,6 +2857,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Reputation.Add(-1))
                     .WithConsequence(() => Jeanne.Add(-1)))
                 .Build());
+            Events.Add(TheDenunciation);
 
             FamilyMatter = (new EventBuilder("EVENTS_PEACETIME_GENERAL_A_FAMILY_MATTER")
     .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_MATTER_DECISION_BECOME_NOBLES_OF_THE_SWORD", decision => decision
@@ -3746,7 +3754,7 @@ namespace BranteCalculator.Entities
 .WithRequirement(() => Justice >= 5)
 .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
 .WithHiddenRequirement(() => TheCaseOfFatherMark.HasPassed)
-.WithHiddenRequirement(() => !ARendezvousWithOctavia.HasPassed)
+.WithHiddenRequirement(() => !FinalPreparations.HasPassed)
 .WithDecision("EVENTS_PEACETIME_JUDGE_FRIEND_OF_THE_PEOPLE_DECISION_AGREE", decision => decision
    .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
    .WithConsequence(() => WealthOfMagra.Add(2))
@@ -3764,7 +3772,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => Career >= 5)
     .WithRequirement(() => BrandedByDishonor == false)
     .WithHiddenRequirement(() => TheCaseOfFatherMark.HasPassed)
-    .WithHiddenRequirement(() => !ARendezvousWithOctavia.HasPassed)
+    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_THE_ROAD_TO_THE_TOP_DECISION_AGREE", decision => decision
         .WithRequirement(() => Egmont != Status.MADE_A_DEAL)
         .WithConsequence(() => Career.Add(3))
@@ -3806,7 +3814,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => Career >= 8)
     .WithRequirement(() => BrandedByDishonor == false)
     .WithHiddenRequirement(() => TheSearchForEvidence.HasPassed)
-    .WithHiddenRequirement(() => !ARealmUnknown.HasPassed)
+    .WithHiddenRequirement(() => !JusticeForAll.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_TAKE_THE_ENVELOPE", decision => decision
         .WithConsequence(() => Diplomacy.Add(1))
         .WithConsequence(() => Career.Add(2))
@@ -3941,7 +3949,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => Inquisition >= 5)
     .WithRequirement(() => Deaths <= 2)
     .WithHiddenRequirement(() => BrothersInMisery.HasPassed)
-    .WithHiddenRequirement(() => !TheFestivalOfSilverTree.HasPassed)
+    .WithHiddenRequirement(() => !ASinnersConfession.HasPassed)
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_PRINCIPLE_OF_THE_WILL_DECISION_AGREE", decision => decision
         .WithConsequence(() => Willpower.Add(40))
         .WithConsequence(() => Deaths.Add(1))
@@ -3958,7 +3966,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => PathOfThePriest == true)
     .WithRequirement(() => Tolerance >= 5)
     .WithHiddenRequirement(() => BrothersInMisery.HasPassed)
-    .WithHiddenRequirement(() => !TheFestivalOfSilverTree.HasPassed)
+    .WithHiddenRequirement(() => !ASinnersConfession.HasPassed)
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_LETHAL_WEAPONS_DECISION_SUPPORT_LENART", decision => decision
         .WithConsequence(() => Power.Add(1))
         .WithConsequence(() => Church.Add(1))
@@ -3983,7 +3991,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => PathOfThePriest == true)
     .WithRequirement(() => Inquisition <= 2)
     .WithHiddenRequirement(() => BrothersInMisery.HasPassed)
-    .WithHiddenRequirement(() => !TheFestivalOfSilverTree.HasPassed)
+    .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_CAPTIVE_DECISION_ABDUCT_CATALINA_EL_LABERIUS", decision => decision
         .WithRequirement(() => Scheming >= 10)
         .WithConsequence(() => Reputation.Add(-1))
@@ -4006,7 +4014,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_EVENING_PRAYER", true)
     .WithRequirement(() => PathOfThePriest == true)
     .WithRequirement(() => Inquisition == 0)
-    .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
+    .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
     .WithDecision("EVENTS_PEACETIME_INQUISITOR_EVENING_PRAYER_DECISION_CAPTURE_THEM", decision => decision
         .WithRequirement(() => Valor >= 12)
         .WithConsequence(() => CollapseOfTheInquisition.Check())
@@ -4027,7 +4035,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_FIRE", true)
    .WithRequirement(() => PathOfThePriest == true)
    .WithRequirement(() => Tolerance <= 2)
-   .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
+   .WithHiddenRequirement(() => !TheDenunciaton.HasPassed)
    .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_FIRE_DECISION_REBUILD_THE_TEMPLE", decision => decision
        .WithRequirement(() => Diplomacy >= 12 || Robert >= 2)
        .WithConsequence(() => Tolerance.Add(2))
@@ -4049,7 +4057,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_NIGHT_OF_SWORD_AND_LASH", true)
    .WithRequirement(() => PathOfThePriest == true)
    .WithRequirement(() => Tolerance == 0)
-   .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
+   .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
    .WithDecision("EVENTS_PEACETIME_INQUISITOR_NIGHT_OF_SWORD_AND_LASH_DECISION_ADMONISH_THE_ANGRY_CROWD", decision => decision
        .WithRequirement(() => Eloquence >= 12)
        .WithConsequence(() => TheNewFaithPersecuted.Check())
@@ -4076,7 +4084,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY", true)
    .WithRequirement(() => PathOfThePriest == true)
    .WithRequirement(() => Inquisition >= 8)
-   .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
+   .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
    .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY_DECISION_LET_THE_NOBLEMAN_GO", decision => decision
        .WithRequirement(() => Willpower >= 0)
        .WithRequirement(() => Ulrich >= 2)
@@ -4097,7 +4105,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_THE_NEW_SACRAMENT", true)
   .WithRequirement(() => PathOfThePriest == true)
   .WithRequirement(() => Tolerance >= 8)
-  .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
+  .WithHiddenRequirement(() => !TheDenunciation.HasPassed)
   .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_NEW_SACRAMENT_DECISION_APPEAL_TO_THE_OVERSEER", decision => decision
       .WithRequirement(() => BrandedByDishonor == false)
       .WithRequirement(() => Diplomacy >= 12 || Reputation >= 7)

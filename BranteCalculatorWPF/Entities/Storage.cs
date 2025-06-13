@@ -2480,7 +2480,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Gloria.Set(Status.BETHROTHED))
                     .WithConsequence(() => Gloria.Add(1)))
                 .WithDecision("EVENTS_PEACETIME_GENERAL_THE_REBEL_DECISION_REJECT_THE_PLAN", decision => decision
-                    .WithConsequence(() => Gloria.Set(null))
+                    .WithConsequence(() => Stephan.Set(null))
                     .WithConsequence(() => Stephan.Add(-3))
                     .WithConsequence(() => Gloria.Add(1)))
                 .Build());

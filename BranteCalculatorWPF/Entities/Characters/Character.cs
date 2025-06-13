@@ -95,7 +95,7 @@ namespace BranteCalculator.Entities.Characters
             Relations.Value += a;
         }
 
-        public void Set(Status flag)
+        public void Set(Status? flag)
         {
             Status = flag;
         }

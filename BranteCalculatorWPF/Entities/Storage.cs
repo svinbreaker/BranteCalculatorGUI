@@ -883,29 +883,6 @@ namespace BranteCalculator.Entities
                     .WithHiddenConsequence(() => MainWindow.ViewModel.OccupationStats.Add(Unrest)))
                 .Build());
 
-            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
-                .WithRequirement(() => PathOfTheNobleman == true)
-                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                                                                                .WithConsequence(() => Stephan.Add(1))
-                                                                                .WithConsequence(() => Gloria.Add(-1)))
-                                                                   .Build());
-
-            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
-                .WithRequirement(() => PathOfTheLotless == true)
-                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                                                                                .WithConsequence(() => Robert.Add(-1))
-                                                                                .WithConsequence(() => Stephan.Add(-1))
-                                                                                .WithConsequence(() => Gloria.Add(1)))
-                                                                   .Build());
-
-            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
-                .WithRequirement(() => PathOfThePriest == true)
-                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                                                                                .WithConsequence(() => Lydia.Add(1))
-                                                                                .WithConsequence(() => Nathan.Add(1))
-                                                                                .WithConsequence(() => Robert.Add(-1)))
-                                                                   .Build());
-
             Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_BONDS_OF_FRIENDSHIP")
                 .WithDecision("EVENTS_YOUTH_GENERAL_BONDS_OF_FRIENDSHIP_DECISION_SWEAR_AN_OATH_OF_FRIENDSHIP", decision => decision
                     .WithRequirement(() => PathOfTheNobleman == true)
@@ -957,6 +934,31 @@ namespace BranteCalculator.Entities
                 .WithDecision("EVENTS_YOUTH_LOTLESS_THE_LOTLESS_DECISION_RECRUIT_NEW_MEMBERS", decision => decision
                     .WithConsequence(() => Willpower.Add(10)))
                 .Build());
+
+            
+            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
+                .WithRequirement(() => PathOfTheNobleman == true)
+                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+                                                                                .WithConsequence(() => Robert.Add(1))
+                                                                                .WithConsequence(() => Stephan.Add(1))
+                                                                                .WithConsequence(() => Gloria.Add(-1)))
+                                                                   .Build());
+
+            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
+                .WithRequirement(() => PathOfTheLotless == true)
+                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+                                                                                .WithConsequence(() => Robert.Add(-1))
+                                                                                .WithConsequence(() => Stephan.Add(-1))
+                                                                                .WithConsequence(() => Gloria.Add(1)))
+                                                                   .Build());
+
+            Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_A_LETTER_FROM_HOME")
+                .WithRequirement(() => PathOfThePriest == true)
+                                                                   .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+                                                                                .WithConsequence(() => Lydia.Add(1))
+                                                                                .WithConsequence(() => Nathan.Add(1))
+                                                                                .WithConsequence(() => Robert.Add(-1)))
+                                                                   .Build());
 
             Events.Add(new EventBuilder("EVENTS_YOUTH_NOBLEMAN_THE_BALL")
                 .WithRequirement(() => PathOfTheNobleman == true)
@@ -2289,36 +2291,6 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Felipe.Add(1)))
                 .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL")
-    .WithRequirement(() => PathOfTheLotless == true)
-    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_FULFILL_HIS_REQUEST", decision => decision
-        .WithConsequence(() => Theology.Add(1))
-        .WithConsequence(() => Church.Add(1))
-        .WithConsequence(() => Unrest.Add(2))
-        .WithConsequence(() => Network.Add(-2))
-        .WithConsequence(() => Reputation.Add(-2)))
-    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_REPORT_LENNART_TO_FELIPE", decision => decision
-        .WithConsequence(() => Church.Add(-1))
-        .WithConsequence(() => Unrest.Add(-2))
-        .WithConsequence(() => Network.Add(2))
-        .WithConsequence(() => Reputation.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_TAKE_ADVANTAGE_OF_HIS_SERMON_TO_RECRUIT_PEOPLE_INTO_THE_LAST_STRAW", decision => decision
-        .WithRequirement(() => Eloquence >= 12)
-        .WithRequirement(() => Willpower >= 0)
-        .WithConsequence(() => Eloquence.Add(1))
-        .WithConsequence(() => Willpower.Add(-5))
-        .WithConsequence(() => Unrest.Add(1))
-        .WithConsequence(() => Network.Add(1))
-        .WithConsequence(() => Reputation.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_CONTACT_THE_INQUISITION", decision => decision
-        .WithRequirement(() => Theology >= 12)
-        .WithConsequence(() => Theology.Add(1))
-        .WithConsequence(() => Church.Add(-1))
-        .WithConsequence(() => Unrest.Add(-1))
-        .WithConsequence(() => Network.Add(-1))
-        .WithConsequence(() => Reputation.Add(1)))
-    .Build());
-
             ThreatsAndPromises = (new EventBuilder("EVENTS_PEACETIME_JUDGE_THREATS_AND_PROMISES")
                 .WithRequirement(() => PathOfTheNobleman == true)
                 .WithDecision("EVENTS_PEACETIME_JUDGE_THREATS_AND_PROMISES_DECISION_PUT_OTTON_AT_EASE", decision => decision
@@ -2423,6 +2395,36 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Tommas.Set(Status.RESCUED))
                     .WithConsequence(() => Tommas.Add(1)))
                 .Build());
+
+               Events.Add(new EventBuilder("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL")
+    .WithRequirement(() => PathOfTheLotless == true)
+    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_FULFILL_HIS_REQUEST", decision => decision
+        .WithConsequence(() => Theology.Add(1))
+        .WithConsequence(() => Church.Add(1))
+        .WithConsequence(() => Unrest.Add(2))
+        .WithConsequence(() => Network.Add(-2))
+        .WithConsequence(() => Reputation.Add(-2)))
+    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_REPORT_LENNART_TO_FELIPE", decision => decision
+        .WithConsequence(() => Church.Add(-1))
+        .WithConsequence(() => Unrest.Add(-2))
+        .WithConsequence(() => Network.Add(2))
+        .WithConsequence(() => Reputation.Add(-1)))
+    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_TAKE_ADVANTAGE_OF_HIS_SERMON_TO_RECRUIT_PEOPLE_INTO_THE_LAST_STRAW", decision => decision
+        .WithRequirement(() => Eloquence >= 12)
+        .WithRequirement(() => Willpower >= 0)
+        .WithConsequence(() => Eloquence.Add(1))
+        .WithConsequence(() => Willpower.Add(-5))
+        .WithConsequence(() => Unrest.Add(1))
+        .WithConsequence(() => Network.Add(1))
+        .WithConsequence(() => Reputation.Add(-1)))
+    .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_AN_URGENT_DEAL_DECISION_CONTACT_THE_INQUISITION", decision => decision
+        .WithRequirement(() => Theology >= 12)
+        .WithConsequence(() => Theology.Add(1))
+        .WithConsequence(() => Church.Add(-1))
+        .WithConsequence(() => Unrest.Add(-1))
+        .WithConsequence(() => Network.Add(-1))
+        .WithConsequence(() => Reputation.Add(1)))
+    .Build());
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_EL_FERROS_LIST")
                 .WithRequirement(() => PathOfTheNobleman == true)
@@ -3809,34 +3811,6 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Justice.Add(-2)))
     .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER", true)
-    .WithRequirement(() => PathOfTheNobleman == true)
-    .WithRequirement(() => Career >= 8)
-    .WithRequirement(() => BrandedByDishonor == false)
-    .WithHiddenRequirement(() => TheSearchForEvidence.HasPassed)
-    .WithHiddenRequirement(() => !JusticeForAll.HasPassed)
-    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_TAKE_THE_ENVELOPE", decision => decision
-        .WithConsequence(() => Diplomacy.Add(1))
-        .WithConsequence(() => Career.Add(2))
-        .WithConsequence(() => ElBorne.Set(Status.BETRAYED))
-        .WithConsequence(() => Tempest.Add(2))
-        .WithConsequence(() => PatronageOfThePowerful.Check()))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_DECLINE", decision => decision
-        .WithRequirement(() => Valor >= 13)
-        .WithConsequence(() => Valor.Add(1))
-        .WithConsequence(() => Career.Add(-2))
-        .WithConsequence(() => Reputation.Add(-1))
-        .WithConsequence(() => Tempest.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_DECLINE_AND_TELL_EL_BORNE", decision => decision
-        .WithRequirement(() => Valor >= 11)
-        .WithConsequence(() => Willpower.Add(-5))
-        .WithConsequence(() => Career.Add(-2))
-        .WithConsequence(() => Justice.Add(1))
-        .WithConsequence(() => Reputation.Add(-1))
-        .WithConsequence(() => ElBorne.Add(1))
-        .WithConsequence(() => Tempest.Add(-2)))
-    .Build());
-
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_THE_CROWDED_SQUARE", true)
         .WithRequirement(() => PathOfTheNobleman == true)
         .WithRequirement(() => Justice <= 2)
@@ -4203,7 +4177,34 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Gloria.Add(-2)))
                 .Build());
 
-
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER", true)
+    .WithRequirement(() => PathOfTheNobleman == true)
+    .WithRequirement(() => Career >= 8)
+    .WithRequirement(() => BrandedByDishonor == false)
+    .WithHiddenRequirement(() => TheSearchForEvidence.HasPassed)
+    .WithHiddenRequirement(() => !JusticeForAll.HasPassed)
+    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_TAKE_THE_ENVELOPE", decision => decision
+        .WithConsequence(() => Diplomacy.Add(1))
+        .WithConsequence(() => Career.Add(2))
+        .WithConsequence(() => ElBorne.Set(Status.BETRAYED))
+        .WithConsequence(() => Tempest.Add(2))
+        .WithConsequence(() => PatronageOfThePowerful.Check()))
+    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_DECLINE", decision => decision
+        .WithRequirement(() => Valor >= 13)
+        .WithConsequence(() => Valor.Add(1))
+        .WithConsequence(() => Career.Add(-2))
+        .WithConsequence(() => Reputation.Add(-1))
+        .WithConsequence(() => Tempest.Add(-1)))
+    .WithDecision("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER_DECISION_DECLINE_AND_TELL_EL_BORNE", decision => decision
+        .WithRequirement(() => Valor >= 11)
+        .WithRequirement(() => ElBorne == Status.THE_PROMISE)
+        .WithConsequence(() => Willpower.Add(-5))
+        .WithConsequence(() => Career.Add(-2))
+        .WithConsequence(() => Justice.Add(1))
+        .WithConsequence(() => Reputation.Add(-1))
+        .WithConsequence(() => ElBorne.Add(1))
+        .WithConsequence(() => Tempest.Add(-2)))
+    .Build());
 
 
 
@@ -4533,8 +4534,7 @@ namespace BranteCalculator.Entities
     .WithDecision("EVENTS_REVOLT_GENERAL_THE_PREFECTURE_UNDER_SIEGE_DECISION_GET_OTTONS_ARMY_TO_ABANDON_HIM", decision => decision
         .WithRequirement(() => OttonIsSentenced == true)
         .WithRequirement(() => TheDefenderOfTheEmpire == false)
-        .WithRequirement(() => Nobles >= 1)
-        .WithRequirement(() => Diplomacy >= 16)
+        .WithRequirement(() => Nobles >= 1 || Diplomacy >= 16)
         .WithConsequence(() => Power.Add(2))
         .WithConsequence(() => Order.Add(1))
         .WithConsequence(() => Revolt.Add(1))

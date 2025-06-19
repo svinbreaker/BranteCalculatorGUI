@@ -5151,6 +5151,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => WealthOfMagra.Add(-1))
                     .WithConsequence(() => Willpower.Add(-5)))
                 .Build());
+            Events.Add(TheBattleForAnizotteVar4);
 
 
             ANewDayDawns = (new EventBuilder("EVENTS_REVOLT_GENERAL_A_NEW_DAY_DAWNS")

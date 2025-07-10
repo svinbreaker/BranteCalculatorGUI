@@ -233,6 +233,7 @@ namespace BranteCalculator.Entities
         public static Event ASinnersConfession;
         public static Event TheDenunciation;
         public static Event JusticeForAll;
+        public static Event TheSmellOfGunpowder;
         public static Event FinalPreparations;
         public static Event FamilyMatter;
         public static Event BrothersInMisery;
@@ -3255,14 +3256,15 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Deaths.Add(4)))
                 .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_THE_SMELL_OF_GUNPOWDER")
+            TheSmellOfGunpowder = new EventBuilder("EVENTS_PEACETIME_JUDGE_THE_SMELL_OF_GUNPOWDER")
                 .WithRequirement(() => PathOfTheNobleman == true)
                 .WithRequirement(() => Justice >= 7)
                 .WithRequirement(() => Egmont == Status.MADE_A_DEAL)
                 .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
                 .WithConsequence(() => Order.Add(-1))
                 .WithConsequence(() => Justice.Add(3)))
-                .Build());
+                .Build();
+            Events.Add(TheSmellOfGunpowder);
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_PRISONERS")
                 .WithRequirement(() => PathOfTheNobleman == true)
@@ -3756,7 +3758,7 @@ namespace BranteCalculator.Entities
 .WithRequirement(() => Justice >= 5)
 .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
 .WithHiddenRequirement(() => TheCaseOfFatherMark.HasPassed)
-.WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+.WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
 .WithDecision("EVENTS_PEACETIME_JUDGE_FRIEND_OF_THE_PEOPLE_DECISION_AGREE", decision => decision
    .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
    .WithConsequence(() => WealthOfMagra.Add(2))
@@ -3774,7 +3776,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => Career >= 5)
     .WithRequirement(() => BrandedByDishonor == false)
     .WithHiddenRequirement(() => TheCaseOfFatherMark.HasPassed)
-    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_THE_ROAD_TO_THE_TOP_DECISION_AGREE", decision => decision
         .WithRequirement(() => Egmont != Status.MADE_A_DEAL)
         .WithConsequence(() => Career.Add(3))
@@ -3792,7 +3794,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP", true)
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Justice >= 8)
-    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP_DECISION_ACQUIT_THE_STEINERS", decision => decision
         .WithRequirement(() => Eloquence >= 10 || Diplomacy >= 16)
         .WithConsequence(() => Eloquence.Add(1))
@@ -3814,7 +3816,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_THE_CROWDED_SQUARE", true)
         .WithRequirement(() => PathOfTheNobleman == true)
         .WithRequirement(() => Justice <= 2)
-        .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+        .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
         .WithDecision("EVENTS_PEACETIME_JUDGE_THE_CROWDED_SQUARE_DECISION_HAVE_THE_MOB_DISPERSED", decision => decision
             .WithRequirement(() => Valor >= 15)
             .WithRequirement(() => Willpower >= 0)
@@ -3846,7 +3848,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_MARCH_OF_THE_DESPERATE", true)
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Justice <= 0)
-    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_MARCH_OF_THE_DESPERATE_DECISION_BRIBE_THE_CAPTAIN", decision => decision
         .WithRequirement(() => Wealth >= 2)
         .WithConsequence(() => Wealth.Add(-2))
@@ -3868,7 +3870,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS", true)
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Career <= 2)
-    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_YOUR_FATHER_FOR_HELP", decision => decision
         .WithRequirement(() => Willpower >= 0)
         .WithRequirement(() => Robert >= 3)
@@ -3895,7 +3897,7 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Career == 0)
     .WithRequirement(() => Stephan != Status.KILLED_IN_A_DUEL)
-    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithHiddenRequirement(() => !TheSmellOfGunpowder.HasPassed)
     .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_REJECT_THE_DEMANDS", decision => decision
         .WithConsequence(() => Reputation.Add(-2))
         .WithConsequence(() => Unity.Add(-2)))

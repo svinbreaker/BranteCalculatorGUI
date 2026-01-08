@@ -2830,7 +2830,7 @@ namespace BranteCalculator.Entities
                 .WithDecision("EVENTS_PEACETIME_GENERAL_REPENTANCE_DECISION_CALL_MOTHER", decision => decision
                     .WithRequirement(() => MotherRecovers == true)
                     .WithRequirement(() => Nathan >= 3)
-                    .WithConsequence(() => Unity.Add(1);
+                    .WithConsequence(() => Unity.Add(1))
                     .WithConsequence(() => Willpower.Add(5))
                     .WithConsequence(() => Manipulation.Add(1))
                     .WithConsequence(() => Eloquence.Add(1))

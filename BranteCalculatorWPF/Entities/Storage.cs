@@ -2830,6 +2830,7 @@ namespace BranteCalculator.Entities
                 .WithDecision("EVENTS_PEACETIME_GENERAL_REPENTANCE_DECISION_CALL_MOTHER", decision => decision
                     .WithRequirement(() => MotherRecovers == true)
                     .WithRequirement(() => Nathan >= 3)
+                    .WithConsequence(() => Unity.Add(1);
                     .WithConsequence(() => Willpower.Add(5))
                     .WithConsequence(() => Manipulation.Add(1))
                     .WithConsequence(() => Eloquence.Add(1))
@@ -3539,6 +3540,54 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Stephan.Set(Status.KILLED_IN_A_DUEL)))
     .Build());
 
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_MOMENT_OF_RESPITE", true)
+    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
+    .WithRequirement(() => Unity == 10)
+    .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+        .WithConsequence(() => Stephan.Add(1))
+        .WithConsequence(() => Robert.Add(1))
+        .WithConsequence(() => Lydia.Add(1))
+        .WithConsequence(() => Nathan.Add(1))
+        .WithConsequence(() => Gloria.Add(1))
+    .WithConsequence(() => Willpower.Add(10)))
+    .Build());
+
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS", true)
+    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
+    .WithRequirement(() => Wealth == 10)
+    .WithRequirement(() => TheFamilyInRuins == false)
+    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_INVEST_IN_THE_HOUSE", decision => decision
+        .WithConsequence(() => AFamilyOfMeans.Check())
+        .WithConsequence(() => Unity.Add(1))
+        .WithConsequence(() => Wealth.Add(-2))
+        .WithConsequence(() => Willpower.Add(5)))
+    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_HOST_A_GALA", decision => decision
+        .WithRequirement(() => BrandedByDishonor == false)
+        .WithConsequence(() => AFamilyOfMeans.Check())
+        .WithConsequence(() => Reputation.Add(1))
+        .WithConsequence(() => Wealth.Add(-2))
+        .WithConsequence(() => Willpower.Add(5)))
+    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_EXPAND_THE_LIBRARY", decision => decision
+        .WithConsequence(() => AFamilyOfMeans.Check())
+        .WithConsequence(() => Wealth.Add(-1))
+        .WithConsequence(() => Theology.Add(1))
+        .WithConsequence(() => Diplomacy.Add(1))
+        .WithConsequence(() => Manipulation.Add(1))
+        .WithConsequence(() => Scheming.Add(1))
+        .WithConsequence(() => Eloquence.Add(1))
+        .WithConsequence(() => Valor.Add(1)))
+    .Build());
+
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_GLORIOUS_BLOODLINE", true)
+    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
+    .WithRequirement(() => Reputation == 10)
+    .WithRequirement(() => BrandedByDishonor == false)
+    .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+        .WithConsequence(() => AGloriousBloodline.Check())
+        .WithConsequence(() => Diplomacy.Add(1))
+        .WithConsequence(() => Valor.Add(1)))
+    .Build());
+
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_FAMILY_STRIFE", true)
                 .WithRequirement(() => Unity == 0)
                 .WithRequirement(() => TheFamilyFallsApart == false)
@@ -4104,53 +4153,7 @@ namespace BranteCalculator.Entities
 
             //Peacetime general optional events
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_MOMENT_OF_RESPITE", true)
-    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
-    .WithRequirement(() => Unity == 10)
-    .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-        .WithConsequence(() => Stephan.Add(1))
-        .WithConsequence(() => Robert.Add(1))
-        .WithConsequence(() => Lydia.Add(1))
-        .WithConsequence(() => Nathan.Add(1))
-        .WithConsequence(() => Gloria.Add(1))
-    .WithConsequence(() => Willpower.Add(10)))
-    .Build());
-
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS", true)
-    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
-    .WithRequirement(() => Wealth == 10)
-    .WithRequirement(() => TheFamilyInRuins == false)
-    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_INVEST_IN_THE_HOUSE", decision => decision
-        .WithConsequence(() => AFamilyOfMeans.Check())
-        .WithConsequence(() => Unity.Add(1))
-        .WithConsequence(() => Wealth.Add(-2))
-        .WithConsequence(() => Willpower.Add(5)))
-    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_HOST_A_GALA", decision => decision
-        .WithRequirement(() => BrandedByDishonor == false)
-        .WithConsequence(() => AFamilyOfMeans.Check())
-        .WithConsequence(() => Reputation.Add(1))
-        .WithConsequence(() => Wealth.Add(-2))
-        .WithConsequence(() => Willpower.Add(5)))
-    .WithDecision("EVENTS_PEACETIME_GENERAL_A_FAMILY_OF_MEANS_DECISION_EXPAND_THE_LIBRARY", decision => decision
-        .WithConsequence(() => AFamilyOfMeans.Check())
-        .WithConsequence(() => Wealth.Add(-1))
-        .WithConsequence(() => Theology.Add(1))
-        .WithConsequence(() => Diplomacy.Add(1))
-        .WithConsequence(() => Manipulation.Add(1))
-        .WithConsequence(() => Scheming.Add(1))
-        .WithConsequence(() => Eloquence.Add(1))
-        .WithConsequence(() => Valor.Add(1)))
-    .Build());
-
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_GLORIOUS_BLOODLINE", true)
-    .WithHiddenRequirement(() => !FamilyMatter.HasPassed)
-    .WithRequirement(() => Reputation == 10)
-    .WithRequirement(() => BrandedByDishonor == false)
-    .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-        .WithConsequence(() => AGloriousBloodline.Check())
-        .WithConsequence(() => Diplomacy.Add(1))
-        .WithConsequence(() => Valor.Add(1)))
-    .Build());
+            
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_STEPHANS_GAMBIT", true)
     .WithHiddenRequirement(() => (PathOfTheNobleman == true && TheSearchForEvidence.HasPassed) || (PathOfThePriest == true && Revelation.HasPassed) || (PathOfTheLotless == true && AnInvitationToDinner.HasPassed))
@@ -4515,7 +4518,7 @@ namespace BranteCalculator.Entities
                     .WithRequirement(() => Diplomacy >= 18)
                     .WithRequirement(() => TheRebel == false)
                     .WithRequirement(() => BrandedByDishonor == false)
-                    .WithConsequence(() => CommonFolk.Add(-1))
+                    .WithConsequence(() => CommonFolk.Add(1))
                     .WithConsequence(() => ElBorne.Set(Status.DEFENDER_OF_THE_EMPIRE))
                     .WithConsequence(() => TheDefenderOfTheEmpire.Check()))
                 .Build());

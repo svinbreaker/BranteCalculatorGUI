@@ -2,8 +2,12 @@
 using BranteCalculator.Entities.Events;
 using BulbulatorLocalization;
 using Microsoft.Win32;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,8 +18,10 @@ namespace BranteCalculatorWPF
     {
         private static Localizer _localizer;
         private static MainViewModel _viewModel;
-        
-        public static Settings Settings { get; } = new ("English");
+
+        private static String _configPath = $@"{ProjectPath}\config.json";
+        private static JsonNode _config = null;
+        public static Settings Settings { get; set; }
 
         public static Localizer Localizer
         {
@@ -39,8 +45,10 @@ namespace BranteCalculatorWPF
         public MainWindow()
         {
             InitializeComponent();
+            ApplySettings();
             InitializeLanguageMenu();
             DataContext = ViewModel;
+            this.Closing += Window_Closing;
             AddNextEvent();
         }
 
@@ -283,6 +291,57 @@ namespace BranteCalculatorWPF
             }
         }
 
+        private void ApplySettings()
+        {
+            if (!File.Exists(_configPath))
+            {
+                _config = CreateDefaultConfig(_configPath);
+            } else {
+
+                try
+                {
+                    string json = File.ReadAllText(_configPath);
+                    _config = JsonNode.Parse(json);
+                }
+                catch
+                {
+                    _config = CreateDefaultConfig(_configPath); 
+                }
+            }
+        
+         
+            if (_config["width"] != null) this.Width = (double) _config["width"];
+            if (_config["height"] != null) this.Height = (double) _config["height"];
+            if (_config["language"] != null)
+            {
+                Settings = new Settings(_config["language"].ToString());
+            } 
+            else
+            {
+                Settings = new Settings("English");
+            }
+        }
+
+        private JsonObject CreateDefaultConfig(string path)
+        {
+            JsonObject config = new JsonObject
+            {
+                ["Language"] = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName switch
+                {
+                    "ru" => "Русский",
+                    "zh" => "简体中文",
+                    _ => "English"
+                },
+                ["Width"] = this.ActualWidth,
+                ["Height"] = this.ActualHeight
+            };
+            File.WriteAllText(path, config.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+
+            return config;
+        }
+
+
+
         private void InitializeLanguageMenu()
         {
             List<string> languages = Localizer.GetLanguages(); 
@@ -310,13 +369,23 @@ namespace BranteCalculatorWPF
             }
 
             clickedItem.IsChecked = true;
-            Settings.Locale = clickedItem.Header.ToString();
+            string language = clickedItem.Header.ToString();
+            Settings.Locale = language;
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e) 
         {
             SavedDecisions.Clear();
             MessageBox.Show("Saved decisions cleared successfully!");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _config["width"] = WindowState == WindowState.Normal ? ActualWidth : RestoreBounds.Width;
+            _config["height"] = WindowState == WindowState.Normal ? ActualHeight : RestoreBounds.Height;
+            _config["language"] = Settings.Locale;
+
+            File.WriteAllText(_configPath, _config.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
         }
     }
 }

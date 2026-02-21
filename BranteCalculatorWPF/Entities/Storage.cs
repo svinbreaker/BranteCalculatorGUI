@@ -4375,7 +4375,7 @@ namespace BranteCalculator.Entities
                 .WithDecision("EVENTS_REVOLT_INQUISITOR_THE_ORDER_DIVIDED_DECISION_CONVINCE_HER_TO_SPARE_THE_INQUISITORS", decision => decision
                     .WithRequirement(() => TheDefenderOfTheEmpire == false)
                     .WithRequirement(() => CassiusFacesTheTribunal == false)
-                    .WithRequirement(() => Eloquence >= 20 || Jeanne == Status.GROWN_CLOSE)
+                    .WithRequirement(() => Eloquence == 20 || Jeanne == Status.GROWN_CLOSE)
                     .WithConsequence(() => Willpower.Add(-5))
                     .WithConsequence(() => Church.Add(1))
                     .WithConsequence(() => Revolt.Add(1))
@@ -4458,7 +4458,7 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Revolt.Add(1))
         .WithConsequence(() => Sophia.Set(Status.LEADING_THE_REVOLT)))
     .WithDecision("EVENTS_REVOLT_CONSPIRATOR_A_CORNERED_BEAST_DECISION_CAPTURE_SOPHIA_AND_HAVE_HER_EXECUTED", decision => decision
-        .WithRequirement(() => Valor >= 14 || Scheming >= 20)
+        .WithRequirement(() => Valor >= 14 || Scheming == 20)
         .WithRequirement(() => Troops >= 1)
         .WithRequirement(() => Sophia != Status.LOVER)
         .WithConsequence(() => Willpower.Add(-5))

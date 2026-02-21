@@ -4373,10 +4373,9 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_REVOLT_INQUISITOR_THE_ORDER_DIVIDED")
                 .WithRequirement(() => PathOfThePriest == true)
                 .WithDecision("EVENTS_REVOLT_INQUISITOR_THE_ORDER_DIVIDED_DECISION_CONVINCE_HER_TO_SPARE_THE_INQUISITORS", decision => decision
-                    .WithRequirement(() => Eloquence >= 20)
-                    .WithRequirement(() => Jeanne == Status.GROWN_CLOSE)
                     .WithRequirement(() => TheDefenderOfTheEmpire == false)
                     .WithRequirement(() => CassiusFacesTheTribunal == false)
+                    .WithRequirement(() => Eloquence >= 20 || Jeanne == Status.GROWN_CLOSE)
                     .WithConsequence(() => Willpower.Add(-5))
                     .WithConsequence(() => Church.Add(1))
                     .WithConsequence(() => Revolt.Add(1))

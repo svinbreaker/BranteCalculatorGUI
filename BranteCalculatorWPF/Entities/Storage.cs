@@ -1125,7 +1125,7 @@ namespace BranteCalculator.Entities
             Events.Add(new EventBuilder("EVENTS_YOUTH_LOTLESS_THE_TRAP_SPRINGS")
                 .WithRequirement(() => PathOfTheLotless == true)
     .WithDecision("EVENTS_YOUTH_LOTLESS_THE_TRAP_SPRINGS_DECISION_RESIST_SOPHIA", decision => decision
-        .WithRequirement(() => Willpower >= 10)
+        .WithRequirement(() => Willpower >= 0)
         .WithConsequence(() => Valor.Add(1))
         .WithConsequence(() => Eloquence.Add(1))
         .WithConsequence(() => Willpower.Add(-5))
@@ -3871,8 +3871,8 @@ namespace BranteCalculator.Entities
             .WithRequirement(() => Willpower >= 0)
             .WithConsequence(() => Justice.Add(-1))
             .WithConsequence(() => Career.Add(1))
-            .WithConsequence(() => Unity.Add(-2))
-            .WithConsequence(() => Valor.Add(-2))
+            .WithConsequence(() => Unity.Add(-1))
+            .WithConsequence(() => Valor.Add(2))
             .WithConsequence(() => Willpower.Add(-5))
             .WithConsequence(() => Gloria.Add(-1)))
         .WithDecision("EVENTS_PEACETIME_JUDGE_THE_CROWDED_SQUARE_DECISION_MAKE_PEACE_WITH_THE_PEOPLE", decision => decision
@@ -3905,12 +3905,9 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Tempest.Add(-1)))
     .WithDecision("EVENTS_PEACETIME_JUDGE_MARCH_OF_THE_DESPERATE_DECISION_GIVE_THE_LEGION_FREE_REIGN", decision => decision
         .WithConsequence(() => Order.Add(-2))
-        .WithConsequence(() => Career.Add(-1))
-            .WithConsequence(() => Eloquence.Add(1))
-    .WithConsequence(() => Willpower.Add(-1))
-        .WithConsequence(() => Gloria.Add(1)))
+        .WithConsequence(() => Career.Add(-1)))
     .WithDecision("EVENTS_PEACETIME_JUDGE_MARCH_OF_THE_DESPERATE_DECISION_PROTECT_THE_COMMON_FOLK", decision => decision
-    .WithRequirement(() => Valor >= 16)
+        .WithRequirement(() => Valor >= 16)
         .WithConsequence(() => ProtectorOfThePeople.Check())
         .WithConsequence(() => Career.Add(-3))
         .WithConsequence(() => Deaths.Add(1)))

@@ -5089,7 +5089,7 @@ namespace BranteCalculator.Entities
             TheBattleForAnizotteVar4 = (new EventBuilder("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE")
                 .WithRequirement(() => Revolt >= 1)
                 .WithRequirement(() => Revolt <= 6)
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DEFEND_THE_CITY", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_DEFEND_THE_CITY", decision => decision
                     .WithRequirement(() => TheRebel == true)
                     .WithRequirement(() => LeadingTheRevolt == true)
                     .WithRequirement(() => Troops >= 2)
@@ -5099,7 +5099,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Power.Add(1))
                     .WithConsequence(() => Church.Add(1))
                     .WithConsequence(() => Willpower.Add(-20)))
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_GET_RID_OF_SOPHIA", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_GET_RID_OF_SOPHIA", decision => decision
                     .WithRequirement(() => TheDefenderOfTheEmpire == true)
                     .WithRequirement(() => Power <= 1)
                     .WithRequirement(() => Troops >= 2)
@@ -5114,7 +5114,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Church.Add(-2))
                     .WithConsequence(() => Willpower.Add(-20))
                     .WithConsequence(() => Deaths.Add(4)))
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_ROUTE_THE_INSURGENTS", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_ROUTE_THE_INSURGENTS", decision => decision
                     .WithRequirement(() => TheDefenderOfTheEmpire == true)
                     .WithRequirement(() => Power <= 1)
                     .WithRequirement(() => Troops >= 1)
@@ -5124,7 +5124,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Power.Add(-2))
                     .WithConsequence(() => Church.Add(-2))
                     .WithConsequence(() => Order.Add(4)))
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DIE_IN_BATTLE_AGAINST_THE_REVOLT", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_DIE_IN_BATTLE_AGAINST_THE_REVOLT", decision => decision
                     .WithRequirement(() => TheRebel == false)
                     .WithConsequence(() => DarkTimes.Check())
                     .WithConsequence(() => TrueDeath.Check())
@@ -5133,7 +5133,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Order.Add(-1))
                     .WithConsequence(() => WealthOfMagra.Add(-1))
                     .WithConsequence(() => Deaths.Add(4)))
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DIE_FOR_THE_REVOLT", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_DIE_FOR_THE_REVOLT", decision => decision
                     .WithRequirement(() => TheDefenderOfTheEmpire == false)
                     .WithConsequence(() => DarkTimes.Check())
                     .WithConsequence(() => TrueDeath.Check())
@@ -5142,7 +5142,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Order.Add(-1))
                     .WithConsequence(() => WealthOfMagra.Add(-1))
                     .WithConsequence(() => Deaths.Add(4)))
-                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_FLEE_THE_CITY", decision => decision
+                .WithDecision("EVENTS_REVOLT_GENERAL_THE_BATTLE_FOR_ANIZOTTE_DECISION_FLEE_THE_CITY", decision => decision
                     .WithRequirement(() => Scheming >= 12)
                     .WithConsequence(() => DarkTimes.Check())
                     .WithConsequence(() => EscapeFromTheCity.Check())

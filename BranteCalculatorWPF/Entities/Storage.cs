@@ -3881,7 +3881,7 @@ namespace BranteCalculator.Entities
             .WithConsequence(() => Justice.Add(2))
             .WithConsequence(() => Diplomacy.Add(1))
             .WithConsequence(() => Eloquence.Add(1))
-            .WithConsequence(() => Willpower.Add(-5))
+            .WithConsequence(() => Willpower.Add(-10))
             .WithConsequence(() => Gloria.Add(1)))
         .WithDecision("EVENTS_PEACETIME_JUDGE_THE_CROWDED_SQUARE_DECISION_KILL_THE_RINGDLEADER", decision => decision
             .WithConsequence(() => Justice.Add(-1))
